@@ -1,0 +1,1 @@
+export const serverAdress = 'https://live-aware-video-integration-backend.onrender.com/'

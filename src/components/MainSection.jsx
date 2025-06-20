@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { VideoBox } from "./VideoBox";
+import { serverAdress } from "../constants/serverAdress";
 
 export function MainSection() {
   const { category } = useParams();
@@ -36,7 +37,7 @@ export function MainSection() {
   const handleGetRequest = async () => {
     setActive((prev) => !prev);
     try {
-      const res = await axios.get("http://localhost:3000/videos", {
+      const res = await axios.get(`${serverAdress}videos`, {
         params: {
           searchQuery: searchQuery,
         },
