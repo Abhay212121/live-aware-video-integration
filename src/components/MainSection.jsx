@@ -10,6 +10,23 @@ export function MainSection() {
   const [active, setActive] = useState(false);
   const [videosArr, setVideosArr] = useState([]);
   const [searchQuery, setSearchQuery] = useState(null);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const serverLoadedCheck = async () => {
+      try {
+        const response = await axios.get(`${serverAdress}`);
+        console.log(response);
+        if (response.data.status == 200) {
+          setLoaded(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    serverLoadedCheck();
+  }, []);
 
   useEffect(() => {
     setActive(false);
@@ -52,6 +69,17 @@ export function MainSection() {
 
   return (
     <div className="w-[75%] min-h-140 mt-5 mx-10">
+      {!loaded && (
+        <div className="border-2 w-[80%] p-4 mx-auto rounded-2xl font-body text-xl">
+          <p>
+            This is a mockup webpage just to display the integration of youtube
+            API with NodeJS and the backend is hosted on render.com which is a
+            free hosting service provider, So it usually takes around 30 secs to
+            start the server.
+          </p>
+          <p>Please be patient and wait.....</p>
+        </div>
+      )}
       <div className="w-200 mx-auto my-15 flex flex-col gap-8">
         <Skeleton active={true} />
         {category == undefined && <Skeleton active={true} />}
